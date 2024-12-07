@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take Your Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General Body Styling */
+    body {
+      background-color: #E6E6FA;
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    /* Header Styling */
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #4B0082; 
+    }
+
+    /* Quiz Container Styling */
+    #quiz-container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Timer Styling */
+    #timer {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #4B0082;
+    }
+
+    /* Options List Styling */
+    #options-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #options-list li {
+      margin: 10px 0;
+    }
+
+    #options-list button {
+      background-color: #4B0082;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+    }
+
+    /* Next Button Styling */
+    #next-button {
+      background-color: #6a0dad;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #next-button:hover {
+      background-color: #4B0082;
+    }
+
+    /* Bubble Animation */
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: bubble 10s infinite;
+    }
+
+    @keyframes bubble {
+      0% {
+        bottom: -100px;
+        left: calc(100% * random() - 50px);
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        left: calc(100% * random());
+        opacity: 0;
+      }
+    }
+
+    .bubble:nth-child(odd) {
+      animation-duration: 8s;
+    }
+
+    .bubble:nth-child(even) {
+      animation-duration: 12s;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Take the Quiz</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div id="quiz-container">
+      <h2 id="question-text">What is the capital of France?</h2>
+      <ul id="options-list"></ul>
+      <div id="timer">Time left: <span id="time-left">30</span> seconds</div>
+    </div>
+    <button id="next-button" onclick="nextQuestion()" style="display:none;">Next Question</button>
+    <div id="result"></div>
+  </main>
+
+  <!-- Script -->
+  <script>
+    let timer;
+    let timeLeft = 30;
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizData = [
+      { question: "What is the capital of France?", options: ["Berlin", "Paris", "Madrid", "Rome"], correct: "Paris" },
+      { question: "What is 5 + 3?", options: ["5", "8", "7", "10"], correct: "8" },
+      { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Saturn"], correct: "Mars" }
+    ];
+
+    function loadQuestion() {
+      const currentQuestion = quizData[currentQuestionIndex];
+      document.getElementById('question-text').textContent = currentQuestion.question;
+      const optionsList = document.getElementById('options-list');
+      optionsList.innerHTML = '';
+      currentQuestion.options.forEach(option => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option);
+        li.appendChild(button);
+        optionsList.appendChild(li);
+      });
+
+      timeLeft = 30;
+      document.getElementById('time-left').textContent = timeLeft;
+      clearInterval(timer);
+      timer = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+      if (timeLeft > 0) {
+        timeLeft--;
+        document.getElementById('time-left').textContent = timeLeft;
+      } else {
+        clearInterval(timer);
+        showResult('Time is up!');
+        document.getElementById('next-button').style.display = 'block';
+      }
+    }
+
+    function checkAnswer(selectedAnswer) {
+      const correctAnswer = quizData[currentQuestionIndex].correct;
+      const result = document.getElementById('result');
+      if (selectedAnswer === correctAnswer) {
+        score++;
+        result.textContent = 'Correct!';
+        result.style.color = 'green';
+      } else {
+        result.textContent = 'Wrong!';
+        result.style.color = 'red';
+      }
+      clearInterval(timer);
+      document.getElementById('next-button').style.display = 'block';
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+        document.getElementById('next-button').style.display = 'none';
+        document.getElementById('result').textContent = '';
+      } else {
+        localStorage.setItem('quizScore', score);
+        window.location.href = 'results.html';
+      }
+    }
+
+    window.onload = loadQuestion;
+  </script>
+
+  <!-- Background Bubbles -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+</body>
+</html>

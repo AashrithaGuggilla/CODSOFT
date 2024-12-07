@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Results</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #E6E6FA;
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #4B0082;
+    }
+
+    .results-container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .score {
+      font-size: 2em;
+      font-weight: bold;
+      color: #4B0082;
+    }
+
+    .performance {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .navigation button {
+      background-color: #4B0082;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .navigation button:hover {
+      background-color: #6a0dad;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: bubble 10s infinite;
+    }
+
+    @keyframes bubble {
+      0% {
+        bottom: -100px;
+        left: calc(100% * random() - 50px);
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        left: calc(100% * random());
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header>
+    <h1>Quiz Results</h1>
+  </header>
+
+  <main>
+    <section class="results-container">
+      <h2 class="score-heading">Your Score</h2>
+      <p class="score" id="score"></p>
+
+      <h3 class="performance-heading">Performance Review</h3>
+      <p class="performance" id="performance"></p>
+    </section>
+
+    <section class="navigation">
+      <button onclick="location.href='takequiz.html'">Take Another Quiz</button>
+      <button onclick="location.href='index.html'">Back to Home</button>
+    </section>
+  </main>
+
+  <script>
+    const score = localStorage.getItem('quizScore');
+    const scoreElement = document.getElementById('score');
+    const performanceElement = document.getElementById('performance');
+
+    scoreElement.textContent = score + " / 10"; 
+
+    if (score >= 8) {
+      performanceElement.textContent = "Great job! You have a solid understanding of the topic.";
+    } else if (score >= 5) {
+      performanceElement.textContent = "Good effort! But there's room for improvement.";
+    } else {
+      performanceElement.textContent = "Keep practicing! You'll get there.";
+    }
+  </script>
+</body>
+</html>

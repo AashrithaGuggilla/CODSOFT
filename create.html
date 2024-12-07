@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="background">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header>
+    <h1>Create Your Quiz</h1>
+  </header>
+
+  <main>
+    <form id="quizForm">
+      <div class="form-group">
+        <label for="quizTitle">Quiz Title:</label>
+        <input type="text" id="quizTitle" placeholder="Enter quiz title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="quizQuestion">Question:</label>
+        <textarea id="quizQuestion" rows="2" placeholder="Enter your question" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="quizOptions">Options (comma-separated):</label>
+        <input type="text" id="quizOptions" placeholder="Option1, Option2, Option3, Option4" required>
+      </div>
+
+      <div class="form-group">
+        <label for="correctAnswer">Correct Answer:</label>
+        <input type="text" id="correctAnswer" placeholder="Enter the correct answer" required>
+      </div>
+
+      <button type="button" id="saveButton">Save Quiz</button>
+    </form>
+
+    <div class="success-message" id="successMessage"></div>
+    <div class="navigation">
+      <button onclick="location.href='index.html'">
+        <i class="fas fa-home"></i> Back to Home
+      </button>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('saveButton').addEventListener('click', function () {
+      const title = document.getElementById('quizTitle').value;
+      const question = document.getElementById('quizQuestion').value;
+      const options = document.getElementById('quizOptions').value.split(',').map(opt => opt.trim());
+      const correctAnswer = document.getElementById('correctAnswer').value;
+
+      if (!title || !question || options.length < 2 || !correctAnswer) {
+        alert('Please fill in all fields and ensure there are at least two options.');
+        return;
+      }
+
+      const quiz = {
+        title,
+        question,
+        options,
+        correctAnswer,
+      };
+
+      const savedQuizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+      savedQuizzes.push(quiz);
+      localStorage.setItem('quizzes', JSON.stringify(savedQuizzes));
+
+      document.getElementById('successMessage').innerText = 'Quiz saved successfully!';
+      document.getElementById('quizForm').reset();
+    });
+  </script>
+</body>
+</html>
