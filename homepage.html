@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHunt - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-image: url('hm.webp'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            height: 100vh; 
+            color: rgb(36, 62, 206);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #0a0aad;
+            color: #b7dc5a;
+            padding-top: 10px;
+            position: fixed;
+            overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #6586be;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f7f7f8;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .header img {
+            width: 170px; 
+            height: auto;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 60%;
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #569c73;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: rgb(249, 247, 247);
+            background-color: #3f50e8;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #7bae56;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #f8f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #1e2fe7;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 30px; 
+        }
+
+        .job-counter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1431c2;
+            text-align: center;
+            margin-bottom: 30px; 
+        }
+
+        .welcome-section {
+            margin-top: 20px; 
+            text-align: center;
+        }
+
+        .welcome-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #2517e8;
+            font-size: 1rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+            }
+
+            .header img {
+                width: 130px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 10px 0;
+            }
+
+            .sidebar ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .sidebar ul li {
+                margin: 5px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 10px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .header img {
+                width: 120px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .content {
+                padding: 15px;
+                margin-top: 15px;
+            }
+
+            .quote, .job-counter, .welcome-section h2, .welcome-section p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="joblistings.html">Job Listings</a></li>
+            <li><a href="jobdetails.html">Job Details</a></li>
+            <li><a href="candidate_dashboard.html">Candidate Dashboard</a></li>
+            <li><a href="employer_dashboard.html">Employer Dashboard</a></li>
+            <li><a href="application_form.html">Apply for Job</a></li> 
+        </ul>
+    </div>
+    <div class="main-content">
+        <header class="header">
+            <img src="j.jpg" alt="JobHunt Logo"> 
+            <div class="search-bar">
+                <form action="joblistings.html" method="get" style="display: flex; width: 100%;">
+                    <input type="text" name="searchQuery" placeholder="Search for jobs, companies..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </header>
+        <div class="content">
+            <div class="quote">
+                "The secret of getting ahead is getting started." – Mark Twain
+            </div>
+            <div class="job-counter">
+                Total Available Jobs: <span id="job-count">500+</span>
+            </div>
+            <div class="welcome-section">
+                <h2>Welcome to JobHunt</h2>
+                <p>Explore top job opportunities, connect with potential employers, and apply for your dream job!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

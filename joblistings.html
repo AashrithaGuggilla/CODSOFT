@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHunt - Job Listings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('listing.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            height: 100vh; 
+            color: #f5f5f5;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .back-link {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #5125c7;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            background-color: #3b1dc3;
+        }
+
+        .job-listings {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .job-card h2 {
+            font-size: 1.5rem;
+            color: #5022c2;
+            margin-bottom: 5px;
+        }
+
+        .job-card h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .job-card p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .apply-link {
+            color: #2d19c5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .apply-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .job-card {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                height: auto;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .back-link {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+
+            .job-card h2 {
+                font-size: 1.3rem;
+            }
+
+            .job-card h3, .job-card p {
+                font-size: 0.9rem;
+            }
+
+            .job-listings {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Job Listings</h1>
+        <a href="homepage.html" class="back-link">Back to Home</a>
+    </div>
+
+    <div class="job-listings">
+        <div class="job-card" data-title="Software Engineer" data-company="Tech Solutions">
+            <h2>Software Engineer</h2>
+            <h3>Company: Tech Solutions</h3>
+            <p>Location: San Francisco, CA</p>
+            <p>Description: We are looking for a skilled software engineer to join our development team.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+
+        <div class="job-card" data-title="Data Analyst" data-company="Data Insights">
+            <h2>Data Analyst</h2>
+            <h3>Company: Data Insights</h3>
+            <p>Location: New York, NY</p>
+            <p>Description: Join our team as a Data Analyst, where you'll work with large datasets to uncover insights.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+
+        <div class="job-card" data-title="Project Manager" data-company="Creative Works">
+            <h2>Project Manager</h2>
+            <h3>Company: Creative Works</h3>
+            <p>Location: Remote</p>
+            <p>Description: We're seeking a project manager with experience managing cross-functional teams.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+
+        <div class="job-card" data-title="Front-End Developer" data-company="Shimmer Shake">
+            <h2>Front-End Developer</h2>
+            <h3>Company: Shimmer Shake</h3>
+            <p>Location: Hyderabad</p>
+            <p>Description: Develop, test, and maintain high-quality user interfaces using modern front-end technologies.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+
+        <div class="job-card" data-title="Backend Developer" data-company="Goalcraft">
+            <h2>Backend Developer</h2>
+            <h3>Company: Goalcraft</h3>
+            <p>Location: Canada</p>
+            <p>Description: A programmer who builds and maintains the server-side logic, databases, and architecture of websites or mobile apps.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+
+        <div class="job-card" data-title="Full-Stack Developer" data-company="TeachTech">
+            <h2>Full-Stack Developer</h2>
+            <h3>Company: TeachTech</h3>
+            <p>Location: Bangalore</p>
+            <p>Description: A versatile tech profile who possesses the skills to handle all aspects of web development.</p>
+            <a href="jobdetails.html" class="apply-link">View Details & Apply</a>
+        </div>
+    </div>
+
+    <script>
+        function getSearchQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('searchQuery');
+        }
+        function filterJobListings(query) {
+            const jobCards = document.querySelectorAll('.job-card');
+            jobCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const company = card.getAttribute('data-company').toLowerCase();
+                if (title.includes(query.toLowerCase()) || company.includes(query.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchQuery = getSearchQuery();
+            if (searchQuery) {
+                filterJobListings(searchQuery);
+            }
+        });
+    </script>
+</body>
+</html>
